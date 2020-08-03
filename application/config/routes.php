@@ -55,5 +55,9 @@ $route['translate_uri_dashes'] = FALSE;
 
 //Telas
 $route['login'] = "ctelas/telaLogin";
+$route['cadastro'] = "ctelas/telaCadastro";
+$route['inicio'] = "ctelas/telaInicial";
 
 //funções
+$route['acessar'] = 'usuariocontroller/acessar';
+$route['cadastrar'] = 'usuariocontroller/cadastrar';
