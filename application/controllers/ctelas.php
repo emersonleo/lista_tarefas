@@ -20,7 +20,15 @@ class ctelas extends CI_Controller{
 	public function telaInicial(){
 		$data = array('title' => "Lista de Tarefas", "lang" => '"pt-br"');
 		$this -> load -> view("header",$data);
-		$this -> load -> view("telaInicial");
+		$this -> load -> view("navbar");
+		$this -> load -> view("telainicial");
+		$this -> load -> view("footer");
+	}
+	public function telaAlterar(){
+		$data = array('title' => "Lista de Tarefas", "lang" => '"pt-br"');
+		$this -> load -> view("header",$data);
+		$this -> load -> view("navbar");
+		$this -> load -> view("telaalterar");
 		$this -> load -> view("footer");
 	}
 

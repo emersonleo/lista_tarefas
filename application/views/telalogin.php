@@ -1,10 +1,13 @@
 
 <?php 
 	if($this -> session -> flashdata("CAD000 - Usuário cadastrado com sucesso")){
-		echo "<script> Swal.fire('Cadastrado com sucesso','Agora você já pode acessar o sistemas utilizando os dados informados no cadastr','success')</script>" ;
+		echo "<script> Swal.fire('Cadastrado com sucesso','Agora você já pode acessar o sistemas utilizando os dados informados no cadastro','success')</script>" ;
 	}elseif($this -> session -> flashdata("LOG001 - Usuário não localizado")){
 		echo "<script> Swal.fire('Usuário não foi encontrado','Certifique-se de que as informações digitadas estão corretas e tente novamente','error')</script>" ;
-	} ?>
+	}elseif($this -> session -> flashdata("DEL000 - Excluído com sucesso")){
+		echo "<script> Swal.fire('Exclusão realizada','Sua conta foi excluída com sucesso','success')</script>" ;
+	} 
+	?>
 <div class="container" style="margin-left: 30%; margin-top: 10%">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">

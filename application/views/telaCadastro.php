@@ -42,11 +42,15 @@
 					console.log(data)
 					window.location.href = data
 				}else{
-
+					Swal.fire(
+					  'Senhas diferentes',
+					  'Os dados digitados na senha e confirmação de senha não são iguais',
+					  'error'
+					)
 				}
 			})
 		}else{
-			alert("não bateu")
+			
 		}
 	})
 </script>
