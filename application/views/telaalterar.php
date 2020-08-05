@@ -100,29 +100,4 @@
 	$("#btnVoltar").click(function(data){
 		window.location.href =<?php echo "'".base_url('alterar')."'"; ?>	
 	})
-	$("#btnDelete").click(function(){
-		Swal.fire({
-		  icon: 'error',
-		  title: 'Deseja excluir sua conta?',
-		  text: 'Confirme sua senha para prosseguir com a exclusão',
-		  input: 'password',
-		  showConfirmButton: true,
-		  confirmButtonText: "Continuar",
-		  confirmButtonColor: "#d33",
-		  showCancelButton: true,
-		  cancelButtonText: "Voltar",
-		  cancelButtonColor: "#3085d6",
-		}).then((result) => {
-		  if(result.value){
-		   	$.post(<?php echo "'".base_url("excluir")."'";?>,{"senha":result.value},function(data){
-		   		if(data == false){
-		   			Swal.fire('Não foi possível prosseguir com a exclusão', 'certifique-se que a senha digite está correta e tente novamente','error');
-		   		}
-		   		else{
-					window.location.href = data	   			
-		   		}
-		   	})
-		  }
-		})
-	})
 </script>

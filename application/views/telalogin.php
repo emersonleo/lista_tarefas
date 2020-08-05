@@ -37,14 +37,21 @@
 $("#btnEntrar").click(function(){
 	var login = $("#login")[0].value
 	var senha = $("#senha")[0].value
-	$.post(<?php echo "'".base_url("acessar")."'";?>,{"login":login,"senha":senha},function(data){
-		if(data){
-			console.log(data)
-			window.location.href = data
-		}else{
+	if(login == "" || senha == ""){
+			Swal.fire(
+			  'Campo vazio',
+			  'Não é possível cadastrar com um ou mais campos vazios',
+			  'error'
+			)
+	}else{
+		$.post(<?php echo "'".base_url("acessar")."'";?>,{"login":login,"senha":senha},function(data){
+			if(data){
+				window.location.href = data
+			}else{
 
-		}
-	})
+			}
+		})
+	}
 })
 
 </script>

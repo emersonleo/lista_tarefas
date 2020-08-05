@@ -66,3 +66,6 @@ $route['sair'] = 'usuariocontroller/sair';
 $route['excluir'] = "usuariocontroller/excluirConta";
 $route['trocarlogin'] = "usuariocontroller/alterarLogin";
 $route['trocarsenha'] = "usuariocontroller/alterarSenha";
+
+$route['criartarefa'] = 'tarefacontroller/criarTarefa';
+$route['listartarefas'] = 'tarefacontroller/listarTarefas';

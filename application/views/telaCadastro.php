@@ -36,21 +36,34 @@
 		var login = $("#login")[0].value
 		var senha = $("#senha")[0].value
 		var confirmasenha = $("#confirmarSenha")[0].value
-		if(senha == confirmasenha){
+		if(login == "" || senha == "" || confirmasenha == ""){
+			Swal.fire(
+			  'Campo vazio',
+			  'Não é possível cadastrar com um ou mais campos vazios',
+			  'error'
+			)
+		}else{
+			console.log(login + "---" + senha + "---" + confirmasenha)
+			if(senha == confirmasenha){
 			$.post(<?php echo "'".base_url("cadastrar")."'";?>, {"login":login, "senha":senha}, function(data){
 				if(data){
 					console.log(data)
 					window.location.href = data
 				}else{
 					Swal.fire(
-					  'Senhas diferentes',
-					  'Os dados digitados na senha e confirmação de senha não são iguais',
+					  'Não foi possível cadastrar',
+					  'Certifique-se que os dados digitados estão corretos e tente novamente',
 					  'error'
 					)
 				}
 			})
 		}else{
-			
+			Swal.fire(
+					  'Senhas diferentes',
+					  'Os dados digitados na senha e confirmação de senha não são iguais',
+					  'error'
+			)
+		}
 		}
 	})
 </script>
