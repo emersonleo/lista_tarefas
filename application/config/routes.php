@@ -58,6 +58,7 @@ $route['login'] = "ctelas/telaLogin";
 $route['cadastro'] = "ctelas/telaCadastro";
 $route['inicio'] = "ctelas/telaInicial";
 $route['alterar'] = "ctelas/telaAlterar";
+$route['concluidas'] = "ctelas/telaConcluidas";
 
 //funções
 $route['acessar'] = 'usuariocontroller/acessar';
@@ -67,5 +68,10 @@ $route['excluir'] = "usuariocontroller/excluirConta";
 $route['trocarlogin'] = "usuariocontroller/alterarLogin";
 $route['trocarsenha'] = "usuariocontroller/alterarSenha";
 
+
 $route['criartarefa'] = 'tarefacontroller/criarTarefa';
 $route['listartarefas'] = 'tarefacontroller/listarTarefas';
+$route['concluirtarefa'] = 'tarefacontroller/concluirTarefa';
+$route['alterartarefa'] = 'tarefacontroller/alterarTarefa';
+$route['excluirtarefa'] = 'tarefacontroller/excluirTarefa';
+$route['listartarefasconcluidas'] = 'tarefacontroller/listarTarefasConcluidas';

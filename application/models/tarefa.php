@@ -16,7 +16,12 @@ class tarefa extends CI_Model{
 	}
 	public function buscarTarefaPorUsuario($id){
 		$this -> db -> order_by("inicio","DESC");
-		$result = $this -> db -> get_where("tarefa", array("usuario" => $id));
+		$result = $this -> db -> get_where("tarefa", array("usuario" => $id,"status" => 1));
+		return $result -> result();
+	}
+	public function buscarTarefasConcluidasPorUsuario($id){
+		$this -> db -> order_by("termino","DESC");
+		$result = $this -> db -> get_where("tarefa", array("usuario" => $id,"status" => 0));
 		return $result -> result();
 	}
 	public function cadastrarTarefa($titulo,$descricao = null,$id_usuario){
@@ -26,8 +31,8 @@ class tarefa extends CI_Model{
 		$result = $this -> db -> insert('tarefa',$data);
 		return $result;
 	}
-	public function apagarTareafa($id_tarefa,$id_usuario){
-		$busca = $this -> buscartarefaPorId($id_tarefa);
+	public function excluirTarefa($id_tarefa,$id_usuario){
+		$busca = $this -> buscarTarefaPeloId($id_tarefa);
 		if($busca -> num_rows() > 0){
 			return  $this->db->delete('tarefa', array('id_tarefa' => $id_tarefa,'usuario' => $id_usuario));
 		}
@@ -35,26 +40,42 @@ class tarefa extends CI_Model{
 			return false;
 		}
 	}
-	public function alterarTarefa($id_tarefa, $id_usuario, $titulo, $descricao = null){
+	public function alterarTarefa($id_tarefa, $id_usuario, $titulo, $descricao){
 		if($this -> verificarPermissaoDeUsuario($id_tarefa,$id_usuario) -> num_rows() == 0){
-			$result = false;
+			$retorno = false;
 		}else{
-			$data = array('titulo' => $titulo, 'descricao' => $descricao);
+			if($titulo == ""){
+				$data = array('descricao' => $descricao);
+			}elseif($descricao == ""){
+				$data = array('titulo' => $titulo);
+			}elseif($titulo != "" and descricao != ""){
+				$data = array('titulo' => $titulo,'descricao' => $descricao);
+			}
 			$this -> db -> where(array('id_tarefa' => $id_tarefa, 'usuario' => $id_usuario));
 			$result = $this ->  db -> update('tarefa', $data);
+			if($this -> db -> affected_rows() > 0){
+				$retorno = true;
+			}else{
+				$retorno = false;
+			}
 		}
-		return $result;
+		return $retorno;
 	}
 	public function concluirTarefa($id_tarefa, $id_usuario){
 		if($this -> verificarPermissaoDeUsuario($id_tarefa,$id_usuario) -> num_rows() == 0){
-			$result = false;
+			$retorno = false;
 		}else{
 			$now = new DateTime();
 			$timestamp = $now -> format("Y/m/d H:i:s");
 			$data = array('termino' => $timestamp, 'status' => 0);
 			$this -> db -> where(array('id_tarefa' => $id_tarefa, 'usuario' => $id_usuario));
 			$result = $this ->  db -> update('tarefa', $data);
+			if($this -> db -> affected_rows() > 0){
+				$retorno = true;
+			}else{
+				$retorno = false;
+			}
 		}
-		return $result;
+		return $retorno;
 	}
 }

@@ -34,13 +34,49 @@ $(function(){
 	})
 })
 function clickHandlerAlterar(idTarefa){
+	var descricao = $("#descricao")[0].value
+	var titulo = $("#titulo")[0].value
+	var inputHTML = '<input type="text" name="novoTitulo" id="novoTitulo" placeholder="Se deseja alterar o título, insira aqui seu novo título" class="form-control col-md-12" style="margin-bottom:10px">'
+	var textareaHTML = '<textarea id="novaDescricao" name="novaDescricao" placeholder="Se deseja alterar a descrição, insira aqui sua nova descrição" class="form-control col-md-12">'+ descricao +'</textarea required>'
+	Swal.fire({
+		  icon: 'error',
+		  title: 'Deseja alterar essa tarefa?',
+		  html: inputHTML + textareaHTML,
+		  showConfirmButton: true,
+		  confirmButtonText: "Alterar",
+		  confirmButtonColor: "#d33",
+		  showCancelButton: true,
+		  cancelButtonText: "Cancelar",
+		  cancelButtonColor: "#3085d6",
+	}).then((result) => {
+		var novaDescricao = document.getElementById('novaDescricao').value
+		var novoTitulo = document.getElementById('novoTitulo').value
+		if(novoTitulo == "" && novaDescricao == ""){
+			
+		}else{
+			$.post(<?php echo "'".base_url('alterartarefa')."'";?>, {"novaDescricao":novaDescricao, "novoTitulo":novoTitulo, "id_tarefa":idTarefa}, function(data){
+					if(data){
+						window.location.reload(true)
+					}
+			})
+		}
+
+	})
 
 }
 function clickHandlerApagar(idTarefa){
-
+	$.post(<?php echo "'".base_url('excluirtarefa')."'";?>, {"tarefa":idTarefa}, function(data){
+		if (data){
+			window.location.reload(true)
+		}
+	})
 }
 function clickHandlerConcluir(idTarefa){
-
+	$.post(<?php echo "'".base_url('concluirtarefa')."'";?>, {"tarefa":idTarefa}, function(data){
+		if (data){
+			window.location.reload(true)	
+		}
+	})
 }
 function construirCards(jsonData){
 	var tamanhoJSON = jsonData.length
@@ -55,10 +91,13 @@ function construirCards(jsonData){
 		var mes = data[1]
 		var ano = data[0]
 		var dataF = dia + "/" + mes + "/" + ano
-		strCards += '<div class="card" style="margin:10px"> <div class="card-body"> <h5 class="card-title">' + jsonData[i].titulo +'</h5> <p class="h6">' + jsonData[i].descricao +'</p> <p class="h6 info">' + dataF + '</p> </button> <button  style="margin-right:5px" type="button" class="btn btn-info"> Alterar </button><button type="button" class="btn btn-success" style="margin:5px"> Concluir </button> <button class="btn btn-danger" type="button" > Excluir </button></div> </div>'
+		var buttonAlterar = '<button onclick="clickHandlerAlterar('+ jsonData[i].id_tarefa +  ')"  style="margin-right:5px" type="button" class="btn btn-info"> Alterar </button>'
+		var buttonConcluir = '<button onclick=clickHandlerConcluir('+ jsonData[i].id_tarefa + ') type="button" class="btn btn-success" style="margin-right:5px"> Concluir </button>'
+		var buttonApagar = '<button onclick=clickHandlerApagar('+ jsonData[i].id_tarefa + ') class="btn btn-danger" type="button" > Excluir </button>'
+		strCards += '<div class="card" style="margin:10px"> <div class="card-body"> <h5 class="card-title"> Título: ' + jsonData[i].titulo +'</h5> <p class="h6"> Descrição: ' + jsonData[i].descricao +'</p> <p class="h6 info"> Início: ' + dataF + '</p>' + buttonAlterar +  buttonConcluir + buttonApagar + '</div> </div>'
 	}
 	if(tamanhoJSON == 0){
-		$("#divCards")[0].innerHTML = '<div class="card"> <div class="card-body"> <h4 class="card-title"> Você ainda não adicionou tarefas </h4> </div> </div>'
+		$("#divCards")[0].innerHTML = '<div class="card"> <div class="card-body" style:"justify-content:center;"> <h4 class="card-title"> Você não possui tarefas a realizar </h4> </div> </div>'
 	}else{
 		$("#divCards")[0].innerHTML = strCards
 	}

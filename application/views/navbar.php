@@ -19,6 +19,9 @@
 					        </div>
 				    	</li>
 				    	<li class="nav-item">
+		    				<a class="nav-item nav-link " href=<?php echo "'".base_url('concluidas')."'"; ?> > Tarefas concluídas </a>
+		    			</li>
+				    	<li class="nav-item">
 		    				<button id='btnSair' name="btnSair" class="btn btn-outline-danger form-inline"> Sair </button>
 		    			</li>
 					</ul>
