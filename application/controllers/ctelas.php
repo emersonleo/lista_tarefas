@@ -3,7 +3,7 @@
 class ctelas extends CI_Controller{
 	
 	public function index(){
-
+		redirect('login');
 	}
 	public function telaLogin(){
 		$data = array('title' => "Lista de Tarefas", "lang" => '"pt-br"');

@@ -2,7 +2,16 @@
 if($this -> session -> flashdata("CTAR001 - Não foi possível cadastrar")){
 	echo "<script> Swal.fire('Não foi possível cadastrar','Ocorreu um erro inesperado durante o cadastro da tarefa, por favor tente novamente','error') </script>" ;
 }elseif($this -> session -> flashdata("CTAR000 - Tarefa cadastrada com sucesso")){
-	echo "<script> Swal.fire('title': 'Tarefa cadastrada com sucesso','icon':'success')</script>" ;
+	echo "<script> Swal.fire('Tarefa cadastrada com sucesso','','success')</script>" ;
+}elseif($this -> session -> flashdata("ETAR001 - excluída com sucesso")){
+	echo "<script> Swal.fire('Tarefa excluída com sucesso','','success')</script>" ;
+}elseif($this -> session -> flashdata("ETAR000 - houve algum erro")){
+	echo "<script> Swal.fire('Não foi possível excluir','ocorreu um erro inesperado','error')</script>" ;
+}elseif($this -> session -> flashdata("ALTTAR000 - Tarefa alterada com sucesso")){
+	echo "<script> Swal.fire('Tarefa alterada com sucesso','','success')</script>" ;
+}
+elseif($this -> session -> flashdata("ALTTAR001 - Ocorreu um erro")){
+	echo "<script> Swal.fire('Não foi possível excluir','ocorreu um erro inesperado','error')</script>" ;
 }
 
 ?>
@@ -30,6 +39,7 @@ if($this -> session -> flashdata("CTAR001 - Não foi possível cadastrar")){
 $(function(){
 	$.post(<?php echo "'".base_url("listartarefas")."'";?>,{},function(data){
 		var jsonData = JSON.parse(data)
+		console.log(jsonData)
 		construirCards(jsonData)
 	})
 })
@@ -97,7 +107,7 @@ function construirCards(jsonData){
 		strCards += '<div class="card" style="margin:10px"> <div class="card-body"> <h5 class="card-title"> Título: ' + jsonData[i].titulo +'</h5> <p class="h6"> Descrição: ' + jsonData[i].descricao +'</p> <p class="h6 info"> Início: ' + dataF + '</p>' + buttonAlterar +  buttonConcluir + buttonApagar + '</div> </div>'
 	}
 	if(tamanhoJSON == 0){
-		$("#divCards")[0].innerHTML = '<div class="card"> <div class="card-body" style:"justify-content:center;"> <h4 class="card-title"> Você não possui tarefas a realizar </h4> </div> </div>'
+		$("#divCards")[0].innerHTML = '<div class="card" style="align-items:center; justify-content:center;"> <div class="card-body"> <h4 class="card-title" > Você não possui tarefas a realizar </h4> </div> </div>'
 	}else{
 		$("#divCards")[0].innerHTML = strCards
 	}

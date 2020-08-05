@@ -1,7 +1,7 @@
 <?php 
 	if($this -> session -> flashdata("ALT000 - Senha alterada")){
 		echo "<script> Swal.fire('Senha alterada com sucesso','Você já pode utilizar sua nova senha no próximo acesso','success')</script>" ;
-	}elseif($this -> session -> flashdata("ALT000 - Senha alterada")){
+	}elseif($this -> session -> flashdata("ALT001 - Login alterado")){
 		echo "<script> Swal.fire('Login alterado com sucesso','Você já pode utilizar seu novo login no próximo acesso','success')</script>" ;
 	}
 ?>

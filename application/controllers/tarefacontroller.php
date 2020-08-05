@@ -19,15 +19,15 @@ class tarefacontroller extends CI_Controller
 			$this -> output -> set_output(true);
 		}else{
 			$this -> session -> set_flashdata("CTAR000 - Tarefa cadastrada com sucesso", true);
-			$this -> output -> set_output(true);
+			$this -> output -> set_output(base_url('telainicial'));
 		}
 	}
-	public function listarTarefas(){
+	public function listarTarefasConcluidas(){
 		$id = $this -> session -> userdata('usuario_autorizado') -> id_usuario;
 		$result = $this -> tarefa -> buscarTarefasConcluidasPorUsuario($id);
 		$this -> output -> set_output(json_encode($result));
 	}
-	public function listarTarefasConcluidas(){
+	public function listarTarefas(){
 		$id = $this -> session -> userdata('usuario_autorizado') -> id_usuario;
 		$result = $this -> tarefa -> buscarTarefaPorUsuario($id);
 		$this -> output -> set_output(json_encode($result));
@@ -47,9 +47,11 @@ class tarefacontroller extends CI_Controller
 		$id_tarefa  = $_POST['tarefa'];
 		$result = $this -> tarefa -> excluirTarefa($id_tarefa,$id_usuario);
 		if($result){
-			$this -> output -> set_output(true);
+			$this -> session -> set_flashdata("ETAR001 - excluída com sucesso", true);
+			$this -> output -> set_output(base_url("inicial"));
 		}else{
-			$this -> output -> set_output(false);
+			$this -> session -> set_flashdata("ETAR000 - houve algum erro", true);
+			$this -> output -> set_output(base_url("inicial"));
 		}
 	}
 	public function alterarTarefa(){
@@ -59,8 +61,10 @@ class tarefacontroller extends CI_Controller
 		$novaDescricao = $_POST['novaDescricao'];
 		$result = $this -> tarefa -> alterarTarefa($id_tarefa,$id_usuario,$novoTitulo,$novaDescricao);
 		if($result){
+			$this -> session -> set_flashdata("ALTTAR000 - Tarefa alterada com sucesso", true);
 			$this -> output -> set_output(true);
 		}else{
+			$this -> session -> set_flashdata("ALTTAR001 - Ocorreu um erro", true);
 			$this -> output -> set_output(false);
 		}
 	}

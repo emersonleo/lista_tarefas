@@ -31,7 +31,7 @@ function construirCards(jsonData){
 	var dataInicio = ""
 	var strCards = ""
 	if(tamanhoJSON == 0){
-		$("#divCardsConcluidas")[0].innerHTML = '<div class="card"> <div class="card-body" style:"justify-content:center;"> <h4 class="card-title"> Você não possui tarefas concluídas </h4> </div> </div>'
+		$("#divCardsConcluidas")[0].innerHTML = '<div class="card" style="align-items:center; justify-content:center; margin:10px"> <div class="card-body" style:"justify-content:center;"> <h4 class="card-title"> Você não possui tarefas concluídas </h4> </div> </div>'
 	}else{
 		for(var i = 0; i < tamanhoJSON; i++){
 			var dataInicio = formatarData(jsonData[i].inicio)
